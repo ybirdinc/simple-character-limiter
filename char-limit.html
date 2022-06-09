@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Char Limit</title>
+</head>
+
+<body>
+  <div>
+    <label for="five">5</label>
+    <input class="char-limited" type="text" id="five" name="five" data-char-length="5">
+    <hr>
+    <label for="ten">10</label>
+    <input class="char-limited" type="text" id="ten" name="ten" data-char-length="10">
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script>
+    $('.char-limited').each(function () {
+      $(this).unbind('keyup change input paste').bind('keyup change input paste', function (e) {
+        var charMax = parseInt($(this).attr('data-char-length'));
+        var charLength = $(this).val().length;
+        if(charLength > charMax){
+           $(this).val($(this).val().substring(0, charMax));
+        }else{
+          var tar = $(this).attr('name');
+          $('body').find('label[for="' + tar + '"]').text(charMax - charLength);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
